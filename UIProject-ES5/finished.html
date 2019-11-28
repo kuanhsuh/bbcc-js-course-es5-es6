@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>ES5 UI</title>
+  <title>ES5 UI-BBCC</title>
 
   <style>
     /* The Modal (background) */
@@ -26,10 +26,16 @@
       text-decoration: none;
       cursor: pointer;
     }
+
+    .rot-90 {
+      transform: rotate(90deg);
+    }
   </style>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 </head>
 
 <body class="font-sans">
@@ -45,6 +51,7 @@
           <li class="p-2  "><a href="#">Blog</a></li>
           <li class="p-2  "><a href="#">聯絡</a></li>
         </ul>
+        <!-- Hamburger Menu -->
         <span onclick="toggleMenu()" class="block md:hidden">
           <span class="block" style="height: 1px; background-color: #000; margin: 6px 0; width: 25px;"></span>
           <span class="block" style="height: 1px; background-color: #000; margin: 6px 0; width: 25px;"></span>
@@ -53,6 +60,7 @@
         <ul id="responsive" class="w-full hidden h-screen text-center md:hidden bg-white"
           style="position: absolute; z-index: 10; top: 0; left: 0">
           <li class="py-10 text-right pr-4">
+            <!-- CROSS -->
             <span onclick="toggleMenu()" class="inline-block relative"
               style="width: 25px; height: 25px; cursor: pointer;">
               <span class="block absolute"
@@ -78,7 +86,7 @@
   </header>
 
   <section>
-    <div class="container mx-auto bg-white">
+    <div class="container mx-auto bg-white ">
       <div class="flex flex-wrap">
         <div class="w-full sm:w-3/12">
           <h2 class="p-4 bg-blue-800 text-white text-center text-3xl">所有產品</h2>
@@ -92,25 +100,20 @@
                 </svg>
               </a>
             </li>
-            <li class="p-4" style="border-bottom: 1px dashed #ccc;"><a href="#"
-                class="flex justify-between items-center">類單眼
-                <svg class="svg-icon" viewBox="0 0 20 20">
-                  <path fill="none"
-                    d="M11.611,10.049l-4.76-4.873c-0.303-0.31-0.297-0.804,0.012-1.105c0.309-0.304,0.803-0.293,1.105,0.012l5.306,5.433c0.304,0.31,0.296,0.805-0.012,1.105L7.83,15.928c-0.152,0.148-0.35,0.223-0.547,0.223c-0.203,0-0.406-0.08-0.559-0.236c-0.303-0.309-0.295-0.803,0.012-1.104L11.611,10.049z">
-                  </path>
-                </svg>
-              </a>
+            <li class="p-4" style="border-bottom: 1px dashed #ccc;"><span
+                class="flex justify-between items-center dropdown">類單眼<img
+                  src="https://image.flaticon.com/icons/svg/32/32213.svg" alt=""
+                  style="width: 14px; height: 14px; pointer-events: none;"></span>
+              <ul class="hidden">
+                <li class="pt-4 px-6 font-medium "><a href="#">Canon</a></li>
+                <li class="pt-4 px-6 font-medium "><a href="#">Sony</a></li>
+                <li class="pt-4 px-6 font-medium "><a href="#">Nikon</a></li>
+                <li class="pt-4 px-6 font-medium "><a href="#">Samsung</a></li>
+                <li class="pt-4 px-6 font-medium "><a href="#">Apple</a></li>
+              </ul>
             </li>
-            <li class="p-4" style="border-bottom: 1px dashed #ccc;"><a href="#"
-                class="flex justify-between items-center">單眼相機
-                <svg class="svg-icon" viewBox="0 0 20 20">
-                  <path fill="none"
-                    d="M11.611,10.049l-4.76-4.873c-0.303-0.31-0.297-0.804,0.012-1.105c0.309-0.304,0.803-0.293,1.105,0.012l5.306,5.433c0.304,0.31,0.296,0.805-0.012,1.105L7.83,15.928c-0.152,0.148-0.35,0.223-0.547,0.223c-0.203,0-0.406-0.08-0.559-0.236c-0.303-0.309-0.295-0.803,0.012-1.104L11.611,10.049z">
-                  </path>
-                </svg>
-              </a>
-            </li>
-            <li class="p-4"><span class="flex justify-between items-center dropdown">單眼相機<img
+            <li class="p-4" style="border-bottom: 1px dashed #ccc;"><span
+                class="flex justify-between items-center dropdown">單眼相機<img
                   src="https://image.flaticon.com/icons/svg/32/32213.svg" alt=""
                   style="width: 14px; height: 14px; pointer-events: none;"></span>
               <ul class="hidden">
@@ -224,7 +227,6 @@
     </div>
   </section>
 
-
   <footer class="bg-gray-100 py-10 px-4 md:px-0">
     <div class="container mx-auto max-w-3xl">
       <h3 class="font-medium text-3xl mb-6 text-center"><span class="inline-block"
@@ -238,7 +240,7 @@
             </label>
             <input
               class="shadow appearance-none border border rounded h-12 w-full py-2 px-3 text-grey-darker mb-3 leading-tight focus:outline-none focus:shadow-outline"
-              id="password" type="email" placeholder="Name">
+              id="password" type="text" placeholder="Name">
           </div>
           <div id="email" class="w-full sm:w-6/12 px-2">
             <label class="block text-grey-darker text-sm font-bold mb-2">
@@ -256,7 +258,7 @@
             </label>
             <textarea
               class="shadow appearance-none border border rounded h-12 w-full py-2 px-3 text-grey-darker mb-3 leading-tight focus:outline-none focus:shadow-outline h-32"
-              id="password" type="email" placeholder="What's Your Message"></textarea>
+              id="password" placeholder="What's Your Message"></textarea>
           </div>
 
           <div class="w-full flex justify-center">
@@ -278,64 +280,92 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"></script>
   <script>
+    // Navbar Toggle
     function toggleMenu() {
-      var navMenu = document.querySelector("#responsive")
+      var navMenu = document.querySelector("#responsive");
       navMenu.classList.toggle("hidden");
     }
 
+    // Dropdown Menu
     var dropdownItems = document.getElementsByClassName("dropdown");
-    var dropdownArray = Array.prototype.slice.call(dropdownItems, 0);
+    var dropdownArray = Array.prototype.slice.call(dropdownItems);
     dropdownArray.forEach(function (el) {
-      el.addEventListener("click", function (e) {
-        e.target.childNodes[1].classList.toggle("rot-90")
-        e.target.nextSibling.nextSibling.classList.toggle("hidden")
+      el.addEventListener('click', function (event) {
+        event.target.childNodes[1].classList.toggle('rot-90')
+        event.target.nextElementSibling.classList.toggle('hidden');
       })
     })
 
-    function checkForm(event) {
-      event.preventDefault();
-      if (document.querySelector("#name").lastElementChild.value === "請輸入你的name") {
-        document.querySelector("#name").appendChild(CreateErrorMessage());
-      }
-      if (document.querySelector("#email").lastElementChild.value === "請輸入你的email") {
-        document.querySelector("#email").appendChild(CreateErrorMessage());
-      }
-      if (document.querySelector("#message").lastElementChild.value === "請輸入你的訊息") {
-        document.querySelector("#message").appendChild(CreateErrorMessage());
-      }
-
-    }
-
-    function CreateErrorMessage() {
-      var createError = document.createElement("p");
-      createError.innerText = "Please choose a password.";
-      createError.classList.add("text-red-500", "text-xs", "italic");
-      return createError;
-    }
-
-
-    var modalBtns = document.querySelectorAll("#myBtn")
+    // Modal
+    var modalBtns = document.querySelectorAll("#myBtn");
     var closeBtns = document.querySelectorAll(".close");
+    var modalBtnsArray = Array.prototype.slice.call(modalBtns);
+    var closeBtnsArray = Array.prototype.slice.call(closeBtns);
 
-    modalBtns.forEach(function (modalBtn) {
-      modalBtn.addEventListener("click", function () {
+    modalBtnsArray.forEach(function (modalBtn) {
+      modalBtn.onclick = function () {
         modalBtn.nextElementSibling.style.display = "block";
-      })
+      }
     })
 
-    closeBtns.forEach(function (closeBtn) {
-      closeBtn.addEventListener("click", function (event) {
+    closeBtnsArray.forEach(function (closeBtn) {
+      closeBtn.onclick = function (event) {
         event.target.parentElement.parentElement.style.display = "";
-      })
+      }
     })
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
-      if (event.target.id == "myModal" && event.target.style.display === "block") {
+      if (event.target.id === "myModal" && event.target.style.display === "block") {
+        // console.log('testing123')
         event.target.style.display = "";
       }
+    }
+
+    // Form Validation
+
+    function checkForm(event) {
+      console.log('event')
+      event.preventDefault();
+
+      var nameField = document.querySelector("#name");
+      var emailField = document.querySelector("#email");
+      var msgField = document.querySelector("#message");
+
+      if (nameField.lastElementChild.value === "") {
+        // display error message
+        nameField.appendChild(createErrorMessage("請輸入名字"));
+      } else {
+        if (nameField.lastElementChild.tagName === "P") {
+          nameField.lastElementChild.remove(nameField.lastElementChild);
+        }
+      }
+
+
+      if (emailField.lastElementChild.value === "") {
+        // display error message
+        emailField.appendChild(createErrorMessage("請輸入Email"));
+      } else {
+        if (emailField.lastElementChild.tagName === "P") {
+          emailField.lastElementChild.remove(emailField.lastElementChild);
+        }
+      }
+
+      if (msgField.lastElementChild.value === "") {
+        // display error message
+        msgField.appendChild(createErrorMessage("請輸入Message"));
+      } else {
+        if (msgField.lastElementChild.tagName === "P") {
+          msgField.lastElementChild.remove(msgField.lastElementChild);
+        }
+      }
+    }
+
+    function createErrorMessage(msg) {
+      var createError = document.createElement("p");
+      createError.innerText = msg;
+      createError.classList.add("text-red-500", "text-xs", "italic");
+      return createError;
     }
 
     $('.owl-carousel').owlCarousel({
@@ -354,6 +384,7 @@
       }
     })
   </script>
+
 </body>
 
 </html>
