@@ -1,26 +1,24 @@
 class Nav {
   constructor() {
+    this.toggleMenu = document.querySelectorAll("#toggleMenu");
     this.navMenu = document.querySelector("#responsive");
     this.events();
   }
 
   events() {
-    // document.querySelector("#toggleMenu").addEventListener("click", function () {
-    //   this.toggleMenu();
-    // }.bind(this))
-    // document.querySelectorAll("#toggleMenu").forEach(function (toggleMenuElement) {
+    // this.toggleMenu.forEach(function (toggleMenuElement) {
     //   toggleMenuElement.addEventListener("click", function () {
-    //     this.toggleMenu();
+    //     this.toggleMenuAction();
     //   }.bind(this))
     // }, this)
-    document.querySelectorAll("#toggleMenu")
-      .forEach(toggleMenuElement =>
-        toggleMenuElement.addEventListener("click",
-          () => this.toggleMenu())
-      )
+    this.toggleMenu.forEach(toggleMenuElement => {
+      toggleMenuElement.addEventListener("click", () => {
+        this.toggleMenuAction();
+      })
+    })
   }
 
-  toggleMenu() {
+  toggleMenuAction() {
     this.navMenu.classList.toggle("hidden");
   }
 

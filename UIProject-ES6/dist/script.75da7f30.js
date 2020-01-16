@@ -137,6 +137,7 @@ function () {
   function Nav() {
     _classCallCheck(this, Nav);
 
+    this.toggleMenu = document.querySelectorAll("#toggleMenu");
     this.navMenu = document.querySelector("#responsive");
     this.events();
   }
@@ -146,23 +147,20 @@ function () {
     value: function events() {
       var _this = this;
 
-      // document.querySelector("#toggleMenu").addEventListener("click", function () {
-      //   this.toggleMenu();
-      // }.bind(this))
-      // document.querySelectorAll("#toggleMenu").forEach(function (toggleMenuElement) {
+      // this.toggleMenu.forEach(function (toggleMenuElement) {
       //   toggleMenuElement.addEventListener("click", function () {
-      //     this.toggleMenu();
+      //     this.toggleMenuAction();
       //   }.bind(this))
       // }, this)
-      document.querySelectorAll("#toggleMenu").forEach(function (toggleMenuElement) {
-        return toggleMenuElement.addEventListener("click", function () {
-          return _this.toggleMenu();
+      this.toggleMenu.forEach(function (toggleMenuElement) {
+        toggleMenuElement.addEventListener("click", function () {
+          _this.toggleMenuAction();
         });
       });
     }
   }, {
-    key: "toggleMenu",
-    value: function toggleMenu() {
+    key: "toggleMenuAction",
+    value: function toggleMenuAction() {
       this.navMenu.classList.toggle("hidden");
     }
   }]);
@@ -200,7 +198,7 @@ function () {
   function Dropdown() {
     _classCallCheck(this, Dropdown);
 
-    this.dropdownItems = _toConsumableArray(document.querySelectorAll(".dropdown"));
+    this.dropdownArray = _toConsumableArray(document.getElementsByClassName("dropdown"));
     this.events();
   }
 
@@ -209,17 +207,17 @@ function () {
     value: function events() {
       var _this = this;
 
-      this.dropdownItems.forEach(function (el) {
-        return el.addEventListener("click", function (e) {
-          return _this.toggleDropdown(e);
+      this.dropdownArray.forEach(function (el) {
+        return el.addEventListener('click', function (event) {
+          return _this.toggleDropdown(event);
         });
       });
     }
   }, {
     key: "toggleDropdown",
-    value: function toggleDropdown(e) {
-      e.target.childNodes[1].classList.toggle("rot-90");
-      e.target.nextSibling.nextSibling.classList.toggle("hidden");
+    value: function toggleDropdown(event) {
+      event.target.childNodes[1].classList.toggle('rot-90');
+      event.target.nextElementSibling.classList.toggle('hidden');
     }
   }]);
 
@@ -227,6 +225,77 @@ function () {
 }();
 
 var _default = Dropdown;
+exports.default = _default;
+},{}],"modules/Modal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Modal =
+/*#__PURE__*/
+function () {
+  function Modal() {
+    _classCallCheck(this, Modal);
+
+    this.modalBtnsArray = _toConsumableArray(document.querySelectorAll("#myBtn"));
+    this.closeBtnsArray = _toConsumableArray(document.querySelectorAll(".close"));
+    this.events();
+  }
+
+  _createClass(Modal, [{
+    key: "events",
+    value: function events() {
+      var _this = this;
+
+      this.modalBtnsArray.forEach(function (modalBtn) {
+        modalBtn.addEventListener("click", function () {
+          _this.openModal(modalBtn);
+        });
+      });
+      this.closeBtnsArray.forEach(function (closeBtn) {
+        closeBtn.addEventListener("click", function (event) {
+          _this.closeModal(event);
+        });
+      });
+      window.addEventListener("click", function (event) {
+        if (event.target.id === "myModal" && event.target.style.display === "block") {
+          event.target.style.display = "";
+        }
+      });
+    }
+  }, {
+    key: "openModal",
+    value: function openModal(modalBtn) {
+      modalBtn.nextElementSibling.style.display = "block";
+    }
+  }, {
+    key: "closeModal",
+    value: function closeModal(event) {
+      event.target.parentElement.parentElement.style.display = "";
+    }
+  }]);
+
+  return Modal;
+}();
+
+var _default = Modal;
 exports.default = _default;
 },{}],"modules/Form.js":[function(require,module,exports) {
 "use strict";
@@ -250,7 +319,7 @@ function () {
 
     this.nameField = document.querySelector("#name");
     this.emailField = document.querySelector("#email");
-    this.messageField = document.querySelector("#message");
+    this.msgField = document.querySelector("#message");
     this.form = document.querySelector("#form");
     this.events();
   }
@@ -260,7 +329,7 @@ function () {
     value: function events() {
       var _this = this;
 
-      this.form.addEventListener('submit', function (event) {
+      this.form.addEventListener("submit", function (event) {
         event.preventDefault();
 
         _this.checkForm(event);
@@ -270,22 +339,34 @@ function () {
     key: "checkForm",
     value: function checkForm(event) {
       if (this.nameField.lastElementChild.value === "") {
-        this.nameField.appendChild(this.CreateErrorMessage());
+        this.nameField.appendChild(this.createErrorMessage("請輸入名字"));
+      } else {
+        if (this.nameField.lastElementChild.tagName === "P") {
+          this.nameField.lastElementChild.remove(this.nameField.lastElementChild);
+        }
       }
 
       if (this.emailField.lastElementChild.value === "") {
-        this.emailField.appendChild(this.CreateErrorMessage());
+        this.emailField.appendChild(this.createErrorMessage("請輸入Email"));
+      } else {
+        if (this.emailField.lastElementChild.tagName === "P") {
+          this.emailField.lastElementChild.remove(this.emailField.lastElementChild);
+        }
       }
 
-      if (this.messageField.lastElementChild.value === "") {
-        this.messageField.appendChild(this.CreateErrorMessage());
+      if (this.msgField.lastElementChild.value === "") {
+        this.msgField.appendChild(this.createErrorMessage("請輸入Message"));
+      } else {
+        if (this.msgField.lastElementChild.tagName === "P") {
+          this.msgField.lastElementChild.remove(this.msgField.lastElementChild);
+        }
       }
     }
   }, {
-    key: "CreateErrorMessage",
-    value: function CreateErrorMessage() {
+    key: "createErrorMessage",
+    value: function createErrorMessage(msg) {
       var createError = document.createElement("p");
-      createError.innerText = "Please choose a password.";
+      createError.innerText = msg;
       createError.classList.add("text-red-500", "text-xs", "italic");
       return createError;
     }
@@ -296,89 +377,7 @@ function () {
 
 var _default = Form;
 exports.default = _default;
-},{}],"modules/Modal.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Modal =
-/*#__PURE__*/
-function () {
-  function Modal() {
-    _classCallCheck(this, Modal);
-
-    this.modalBtns = document.querySelectorAll("#myBtn");
-    this.closeBtns = document.querySelectorAll(".close");
-    this.events();
-  }
-
-  _createClass(Modal, [{
-    key: "events",
-    value: function events() {
-      var _this = this;
-
-      this.modalBtns.forEach(function (modalBtn) {
-        return modalBtn.addEventListener("click", function () {
-          return _this.openModal(modalBtn);
-        });
-      });
-      this.closeBtns.forEach(function (closeBtn) {
-        return closeBtn.addEventListener("click", function (event) {
-          return _this.closeModal(event);
-        });
-      });
-
-      window.onclick = function (event) {
-        if (event.target.id == "myModal" && event.target.style.display === "block") {
-          event.target.style.display = "";
-        }
-      };
-    }
-  }, {
-    key: "openModal",
-    value: function openModal(modalBtn) {
-      modalBtn.nextElementSibling.style.display = "block";
-    }
-  }, {
-    key: "closeModal",
-    value: function closeModal(event) {
-      event.target.parentElement.parentElement.style.display = "";
-    }
-  }]);
-
-  return Modal;
-}();
-
-var _default = Modal; // var modalBtns = document.querySelectorAll("#myBtn")
-// var closeBtns = document.querySelectorAll(".close");
-// modalBtns.forEach(function (modalBtn) {
-//   modalBtn.addEventListener("click", function () {
-//     modalBtn.nextElementSibling.style.display = "block";
-//   })
-// })
-// closeBtns.forEach(function (closeBtn) {
-//   closeBtn.addEventListener("click", function (event) {
-//     event.target.parentElement.parentElement.style.display = "";
-//   })
-// })
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function (event) {
-//   if (event.target.id == "myModal" && event.target.style.display === "block") {
-//     event.target.style.display = "";
-//   }
-// }
-
-exports.default = _default;
-},{}],"../../../../.nvm/versions/node/v10.16.0/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -11190,7 +11189,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{"process":"../../../../.nvm/versions/node/v10.16.0/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"modules/import-jquery.js":[function(require,module,exports) {
+},{"process":"../../../../../../usr/local/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"modules/import-jquery.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11202,8 +11201,7 @@ var _jquery = _interopRequireDefault(require("jquery"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _default = window.$ = window.jQuery = _jquery.default; // https://stackoverflow.com/questions/47968529/how-do-i-use-jquery-and-jquery-ui-with-parcel-bundler
-
+var _default = window.$ = window.jQuery = _jquery.default;
 
 exports.default = _default;
 },{"jquery":"node_modules/jquery/dist/jquery.js"}],"node_modules/owl.carousel/dist/owl.carousel.js":[function(require,module,exports) {
@@ -14670,43 +14668,25 @@ require("owl.carousel");
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+var Slider = function Slider() {
+  _classCallCheck(this, Slider);
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Slider =
-/*#__PURE__*/
-function () {
-  function Slider() {
-    _classCallCheck(this, Slider);
-
-    // this.events()
-    $(document).ready(function () {
-      $('.owl-carousel').owlCarousel({
-        loop: true,
-        margin: 10,
-        responsive: {
-          0: {
-            items: 1
-          },
-          600: {
-            items: 3
-          },
-          1000: {
-            items: 3
-          }
-        }
-      });
-    });
-  }
-
-  _createClass(Slider, [{
-    key: "events",
-    value: function events() {}
-  }]);
-
-  return Slider;
-}();
+  $('.owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 3
+      },
+      1000: {
+        items: 3
+      }
+    }
+  });
+};
 
 var _default = Slider;
 exports.default = _default;
@@ -14717,9 +14697,9 @@ var _Nav = _interopRequireDefault(require("./modules/Nav"));
 
 var _Dropdown = _interopRequireDefault(require("./modules/Dropdown"));
 
-var _Form = _interopRequireDefault(require("./modules/Form"));
-
 var _Modal = _interopRequireDefault(require("./modules/Modal"));
+
+var _Form = _interopRequireDefault(require("./modules/Form"));
 
 var _Slider = _interopRequireDefault(require("./modules/Slider"));
 
@@ -14727,10 +14707,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var nav = new _Nav.default();
 var dropdown = new _Dropdown.default();
-var form = new _Form.default();
 var modal = new _Modal.default();
+var form = new _Form.default();
 var slider = new _Slider.default();
-},{"./modules/Nav":"modules/Nav.js","./modules/Dropdown":"modules/Dropdown.js","./modules/Form":"modules/Form.js","./modules/Modal":"modules/Modal.js","./modules/Slider":"modules/Slider.js"}],"../../../../.nvm/versions/node/v10.16.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./modules/Nav":"modules/Nav.js","./modules/Dropdown":"modules/Dropdown.js","./modules/Modal":"modules/Modal.js","./modules/Form":"modules/Form.js","./modules/Slider":"modules/Slider.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -14758,7 +14738,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65179" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50295" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -14934,5 +14914,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../.nvm/versions/node/v10.16.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
+},{}]},{},["../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
 //# sourceMappingURL=/script.75da7f30.js.map

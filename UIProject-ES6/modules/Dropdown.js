@@ -1,19 +1,22 @@
 class Dropdown {
   constructor() {
-    this.dropdownItems = [...document.querySelectorAll(".dropdown")]
+    this.dropdownArray = [...document.getElementsByClassName("dropdown")];
     this.events();
   }
 
   events() {
-    this.dropdownItems.forEach((el) =>
-      el.addEventListener("click", (e) => this.toggleDropdown(e))
+    this.dropdownArray.forEach(el =>
+      el.addEventListener('click', event =>
+        this.toggleDropdown(event)
+      )
     )
   }
 
-  toggleDropdown(e) {
-    e.target.childNodes[1].classList.toggle("rot-90")
-    e.target.nextSibling.nextSibling.classList.toggle("hidden")
+  toggleDropdown(event) {
+    event.target.childNodes[1].classList.toggle('rot-90')
+    event.target.nextElementSibling.classList.toggle('hidden');
   }
+
 }
 
 export default Dropdown;
