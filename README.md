@@ -18,4 +18,4 @@ ES6 - 改用現代 ES6 語法， 模組化 JS
 
 [] 表單驗證
 
-![](https://cdn.hiskio.com/temps/yio7nrfhihlmd7h)
+![Screenshot](https://github.com/kuanhsuh/bbcc-js-course-es5-es6/blob/master/screenshot.png)
